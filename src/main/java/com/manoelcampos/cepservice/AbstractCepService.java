@@ -15,9 +15,6 @@ import java.util.logging.Logger;
 public abstract class AbstractCepService implements CepService {
     private final static Logger LOGGER = Logger.getLogger(CepService.class.getSimpleName());
 
-    /**
-     * Objeto utilizado para enviar requisição HTTP para uma determinada URI.
-     */
     private final WebTarget target;
 
     /**
@@ -78,7 +75,7 @@ public abstract class AbstractCepService implements CepService {
          * estamos indicando que o objeto JSON recebido deve ser automaticamente
          * convertido para um objeto java da classe {@link Endereco}.
          */
-        return target.path(buildPath(cep)).request().get(Endereco.class);
+        return buildPath(cep).request().get(Endereco.class);
     }
 
     /**
@@ -89,7 +86,7 @@ public abstract class AbstractCepService implements CepService {
      * @return a URI completa da requisição
      */
     private String getFullPath(final String cep){
-        return dominio + buildPath(cep);
+        return buildPath(cep).getUri().toString();
     }
 
     /**
@@ -100,5 +97,12 @@ public abstract class AbstractCepService implements CepService {
      * @param cep CEP para buscar o endereço
      * @return o caminho relativo do endpoint de busca de CEP
      */
-    protected abstract String buildPath(String cep);
+    protected abstract WebTarget buildPath(String cep);
+
+    /**
+     * Objeto utilizado para enviar requisição HTTP para uma determinada URI.
+     */
+    public WebTarget getTarget() {
+        return target;
+    }
 }

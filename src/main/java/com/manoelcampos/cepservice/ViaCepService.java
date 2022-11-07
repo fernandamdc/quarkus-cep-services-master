@@ -1,6 +1,6 @@
 package com.manoelcampos.cepservice;
 
-import javax.enterprise.context.Dependent;
+import javax.ws.rs.client.WebTarget;
 
 /**
  * Acesso à API REST to serviço <a href="https://viacep.com.br">ViaCEP</a>.
@@ -13,7 +13,7 @@ import javax.enterprise.context.Dependent;
  *
  * @author Manoel Campos da Silva Filho
  */
-@Dependent
+
 public final class ViaCepService extends AbstractCepService {
     private static final String DOMINIO = "https://viacep.com.br/";
 
@@ -33,7 +33,7 @@ public final class ViaCepService extends AbstractCepService {
     }
 
     @Override
-    protected String buildPath(final String cep) {
-        return "ws/" + cep + "/json";
+    protected WebTarget buildPath(final String cep) {
+        return getTarget().path("ws/" + cep + "/json");
     }
 }

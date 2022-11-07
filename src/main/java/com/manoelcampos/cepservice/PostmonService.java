@@ -1,5 +1,7 @@
 package com.manoelcampos.cepservice;
 
+import javax.ws.rs.client.WebTarget;
+
 /**
  * Acesso à API REST to serviço <a href="https://postmon.com.br">Postmon</a>.
  * Exemplo de requisição: <a href="https://api.postmon.com.br/v1/cep/77021090">https://api.postmon.com.br/v1/cep/77021090</a>.
@@ -25,7 +27,7 @@ public final class PostmonService extends AbstractCepService {
     }
 
     @Override
-    protected String buildPath(final String cep) {
-        return "v1/cep/" + cep;
+    protected WebTarget buildPath(final String cep) {
+        return getTarget().path("v1/cep/" + cep);
     }
 }
